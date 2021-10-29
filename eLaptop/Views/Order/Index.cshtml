@@ -1,0 +1,74 @@
+﻿@model IList<OrderVM>
+
+
+@{
+    ViewData["Title"] = "Your Orders";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="text-center">
+            <h2>Your Orders</h2>
+        </div>
+        <br>
+         @if (Model.Any())
+                            {
+        <table  id="tblData" class="table">
+            <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Order Items</th>
+                <th>Shopping Date</th>
+                <th>Location</th>
+                <th>Total Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                            @foreach (var order in Model)
+                            {
+                                <tr>
+                                    <td class="align-middle">@order.OrderId</td>
+                                    <td class="align-middle">
+                                        @foreach (var item in order.OrderItems)
+                                        {
+                                            <li>@item.Name  (@item.Amount × $@item.Price)</li>
+                                        }
+                                    </td>
+                                    <td class="align-middle">@order.ShoppingDate.ToShortDateString()</td>
+                                    <td class="align-middle">@order.City, @order.Area, @order.StreetAddress</td>
+                                    <td class="align-middle">@order.TotalPrice.ToString("c")</td>
+                                    <td class="align-middle">
+                                       
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+           
+            <tfoot>
+                
+            </tfoot>
+        </table>
+                            }
+         else
+         {
+             <p> No Orders exists.</p>
+         }
+        <div class="text-right">
+            <div class="btn-group">
+                <a class="btn btn-outline-primary" asp-controller="Home" asp-action="Index">
+                    Bacl to list
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*
+@section Scripts
+{
+    <script src="~/js/inquiry.js"></script>
+}
+
+ 
+*@

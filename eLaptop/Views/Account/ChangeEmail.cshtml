@@ -1,0 +1,66 @@
+﻿@model ChangeEmailVM
+
+@{
+    ViewBag.Title = "Change email";
+    Layout = "_Layout";
+}
+
+<div class="py-4">
+
+    <div class="row form-group">
+        <div class="col-8 offset-2">
+            <div class="card">
+                <div class="card-body px-lg-5 pt-4">
+                    <form method="post">
+                        <h3 class="col-12 text-success text-center py-4">
+
+                            <strong>Change email</strong>
+
+                        </h3>
+                        <hr/>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                        <div class="py-2">
+                            <input asp-for="Email" placeholder="Email" type="email" class="form-control"/>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="py-2">
+
+                            <input asp-for="NewEmail" placeholder="New Email" type="email" class="form-control"/>
+
+                            <span asp-validation-for="NewEmail" class="text-danger"></span>
+                        </div>
+                        <div class="py-2">
+
+                            <input asp-for="Password" placeholder="Password" type="password" class="form-control"/>
+
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="py-2">
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
+
+                        </div>
+                        <br>
+
+
+                        <div class="py-2">
+                            <a asp-controller="Account" asp-action="Index" class="btn btn-outline-success form-control">Back</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

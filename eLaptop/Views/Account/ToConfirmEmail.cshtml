@@ -1,0 +1,27 @@
+﻿@model string
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> _userManager
+@{
+    ViewData["Title"] = "Confirm email";
+    Layout = "_Layout";
+}
+
+<br>
+<br>
+<br>
+
+<div class="text-center">
+    <h5 >
+        please confirm your @Model email,
+        <br> by clicking on the confirmation link we have emailed you.</br>
+
+    </h5>
+
+
+    <h7 >  <a asp-action="ResendNewToken" asp-route-email="@Model"> clike here </a>to resend</h7>
+    <h7>OR</h7>
+    <h7 > if email is wrong <a asp-action="ChangeEmail" asp-route-email="@Model"> clike here </a>to reset</h7>
+
+
+</div>

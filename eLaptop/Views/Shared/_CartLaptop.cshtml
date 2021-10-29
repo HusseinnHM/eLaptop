@@ -1,0 +1,56 @@
+﻿@model HomeVM
+
+@foreach (var item in Model.Products )
+        {
+            
+            <div class="col-md-4 col-xs-6 border-primary mb-3">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-header text-white bg-info">
+                                <p class="card-text">
+                                    <h5 class="card-title">
+                                        @item.Name
+                                         @if (User.IsInRole(WebConstance.AdminRole))
+                                         {
+                                             <a class="text-white float-right" asp-controller="Product" asp-action="Upsert" asp-route-id="@item.ProductId">
+                                                 <i class="bi bi-pencil-square"></i>
+                                             </a>
+                                         }
+                                    </h5>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-5">
+                            <img src="@item.ImageUrl" width="100%" height="250px" t: 434px  alt="@item.Name">
+                        </div>
+                        <div class="card-body p-1 px-3 row ">
+                            <div class="col-5 text-center">
+                                <span class="badge p-2 border w-50 text-dark" style="background-color:lavenderblush">@item.Company.Name</span>
+                            </div>
+                            <div class="col-7 text-center">
+
+                                <span class="badge p-2 border w-50 text-dark" style="background-color:aliceblue">@item.ProductType.Name</span>
+                            </div>
+
+                            <div class="col-12 pt-2" style="font-size:13px; text-align:justify">
+                                @* *@
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-footer ">
+                                <p class="card-text">
+                                    <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.ProductId">
+                                        <i class="bi bi-eye-fill"></i> Show Details
+                                    </a>
+                                    <a class="btn btn-success text-white"  asp-action="AddItemToShoppingCart" asp-route-id="@item.ProductId">
+                                        <i class="bi bi-cart-plus"></i> @item.Price.ToString("c")
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
