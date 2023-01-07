@@ -29,7 +29,7 @@ namespace eLaptop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -44,10 +44,10 @@ namespace eLaptop
 
             services.AddIdentity<ApplicationUser,IdentityRole>(options =>
                 {
-                    options.Password.RequiredLength = 8;
+                    options.Password.RequiredLength = 4;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireLowercase = false;
-                    options.Password.RequiredUniqueChars = 3;
+                    options.Password.RequiredUniqueChars = 0;
                     options.Password.RequireNonAlphanumeric = false;
                     options.SignIn.RequireConfirmedEmail = true;
                     options.Lockout.MaxFailedAccessAttempts = 5;
@@ -97,7 +97,7 @@ namespace eLaptop
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            
+            app.Migration<ApplicationDbContext>(DataSeed.Seed,true);
         }
     }
 }

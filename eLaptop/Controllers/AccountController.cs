@@ -36,7 +36,6 @@ namespace eLaptop.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            
             var user = await _userManager.GetUserAsync(User);
             var result = _mapper.Map<UpdateInfoVM>(user);
             return View(result);
@@ -78,7 +77,6 @@ namespace eLaptop.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM model)
         {
-            
             if (!ModelState.IsValid)
                 return View(model);
 
@@ -91,21 +89,10 @@ namespace eLaptop.Controllers
 
             if (result.Succeeded)
             {
-                //This code in if statement run just for the first time then delete it.
-                if (!await _roleManager.RoleExistsAsync(WebConstance.AdminRole))
-                {
-                    await _roleManager.CreateAsync(new IdentityRole(WebConstance.AdminRole));
-                    await _roleManager.CreateAsync(new IdentityRole(WebConstance.CustomerRole)); 
+                if (User.IsInRole(WebConstance.AdminRole))
                     await _userManager.AddToRoleAsync(user, WebConstance.AdminRole);
-                }
                 else
-                {
-
-                    if (User.IsInRole(WebConstance.AdminRole))
-                        await _userManager.AddToRoleAsync(user, WebConstance.AdminRole);
-                    else
-                        await _userManager.AddToRoleAsync(user, WebConstance.CustomerRole);
-                }
+                    await _userManager.AddToRoleAsync(user, WebConstance.CustomerRole);
 
                 string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
